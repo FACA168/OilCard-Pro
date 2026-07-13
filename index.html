@@ -22,13 +22,14 @@ content="width=device-width,initial-scale=1.0,user-scalable=no">
 
 <div class="logo">
 
-<img src="images/logo.png">
+<img src="images/logo.png" alt="Logo">
 
 <span>OilCard Pro</span>
 
 </div>
 
-<div class="service">
+<div class="service"
+onclick="location.href='service.html'">
 
 在线客服
 
@@ -38,19 +39,20 @@ content="width=device-width,initial-scale=1.0,user-scalable=no">
 
 <!-- Banner -->
 
-<div class="banner">
+<section class="banner">
 
-<img src="images/banner.jpg">
+<img src="images/banner.jpg"
+alt="Banner">
 
-</div>
+</section>
 
 <!-- 公告 -->
 
 <div class="notice">
 
-<marquee>
+<marquee scrollamount="4">
 
-🎉 欢迎使用 OilCard Pro 加油卡充值平台，电子代金券限时领取。
+🎉 欢迎使用 OilCard Pro，首次注册即可领取电子代金券。
 
 </marquee>
 
@@ -60,14 +62,20 @@ content="width=device-width,initial-scale=1.0,user-scalable=no">
 
 <div class="card">
 
-<h3>领取电子代金券</h3>
+<h2>
+
+领取电子代金券
+
+</h2>
 
 <input
 type="tel"
 id="mobile"
-placeholder="请输入手机号码">
+maxlength="11"
+placeholder="请输入11位手机号码">
 
-<button id="receiveBtn">
+<button
+id="receiveBtn">
 
 立即领取
 
@@ -75,95 +83,87 @@ placeholder="请输入手机号码">
 
 </div>
 
-<!-- 代金券 -->
+<!-- 电子券 -->
 
 <div
 class="coupon"
 id="couponBox">
 
-<div class="title">
+<h3>
 
 电子代金券
 
-</div>
+</h3>
 
-<div class="couponCode"
+<div
+class="coupon-number"
 id="couponCode">
 
 ---------
 
 </div>
 
-<div class="status">
+<div
+class="coupon-status">
 
 状态：
 
-<span id="couponStatus">
+<span
+id="couponStatus">
 
-等待激活
+未领取
 
 </span>
 
 </div>
 
-<button id="submitStaff">
+<button
+id="nextBtn"
+style="display:none;">
 
-提交工作人员激活
+下一步
 
 </button>
 
 </div>
 
-<!-- 充值 -->
+<!-- 功能入口 -->
 
-<div class="card recharge">
+<div class="card">
 
 <h3>
 
-充值金额
+快捷功能
 
 </h3>
 
-<div class="moneyList">
+<div class="grid">
 
-<button class="money">
+<div class="item">
 
-100元
-
-</button>
-
-<button class="money">
-
-200元
-
-</button>
-
-<button class="money">
-
-300元
-
-</button>
-
-<button class="money">
-
-500元
-
-</button>
-
-<button class="money">
-
-1000元
-
-</button>
+订单查询
 
 </div>
 
-<button
-class="payBtn">
+<div class="item">
 
-立即充值
+充值记录
 
-</button>
+</div>
+
+<div class="item">
+
+联系客服
+
+</div>
+
+<div class="item">
+
+帮助中心
+
+</div>
+
+</div>
 
 </div>
 
@@ -176,8 +176,151 @@ OilCard Pro
 </footer>
 
 <script src="js/api.js"></script>
-<script src="js/script.js"></script>
+
+<script>
+
+
+  // ==============================
+// OilCard Pro 首页 V4.0
+// ==============================
+
+const mobile=document.getElementById("mobile");
+const receiveBtn=document.getElementById("receiveBtn");
+const nextBtn=document.getElementById("nextBtn");
+
+const couponCode=document.getElementById("couponCode");
+const couponStatus=document.getElementById("couponStatus");
+
+// 页面初始化
+window.onload=function(){
+
+    const phone=localStorage.getItem("mobile");
+    const code=localStorage.getItem("couponCode");
+
+    if(phone){
+
+        mobile.value=phone;
+
+    }
+
+    if(code){
+
+        couponCode.innerHTML=code;
+
+        couponStatus.innerHTML="已领取";
+
+        couponStatus.style.color="#18a058";
+
+        receiveBtn.style.display="none";
+
+        nextBtn.style.display="block";
+
+    }
+
+}
+
+// 生成电子券编号
+function createCoupon(){
+
+    const chars="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+
+    let code="OC-";
+
+    for(let i=0;i<10;i++){
+
+        code+=chars[
+            Math.floor(
+                Math.random()*chars.length
+            )
+        ];
+
+    }
+
+    return code;
+
+}
+
+// 点击领取
+receiveBtn.onclick=function(){
+
+    const phone=mobile.value.trim();
+
+    if(phone.length!=11){
+
+        alert("请输入11位手机号码");
+
+        return;
+
+    }
+
+    // 已领取，不重新生成
+    let code=localStorage.getItem("couponCode");
+
+    if(!code){
+
+        code=createCoupon();
+
+        localStorage.setItem(
+            "couponCode",
+            code
+        );
+
+    }
+
+    localStorage.setItem(
+        "mobile",
+        phone
+    );
+
+    couponCode.innerHTML=code;
+
+    couponStatus.innerHTML="已领取";
+
+    couponStatus.style.color="#18a058";
+
+    receiveBtn.style.display="none";
+
+    nextBtn.style.display="block";
+
+    alert("电子代金券领取成功！");
+
+}
+
+// 下一步
+nextBtn.onclick=function(){
+
+    location.href="order.html";
+
+}
+
+  // 恢复按钮状态
+if(localStorage.getItem("couponCode")){
+
+    receiveBtn.disabled=true;
+
+    receiveBtn.innerHTML="已领取";
+
+}
+
+// 回车领取
+mobile.addEventListener("keydown",function(e){
+
+    if(e.key==="Enter"){
+
+        if(receiveBtn.style.display!="none"){
+
+            receiveBtn.click();
+
+        }
+
+    }
+
+});
+
+</script>
 
 </body>
 
 </html>
+
+

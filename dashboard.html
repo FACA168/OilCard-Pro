@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width,initial-scale=1">
+
+<title>后台管理</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<div class="admin-header">
+
+<h2>订单管理后台</h2>
+
+<button id="logout">
+
+退出登录
+
+</button>
+
+</div>
+
+<div class="dashboard">
+
+<div class="card">
+
+<h3>今日订单</h3>
+
+<p id="todayCount">0</p>
+
+</div>
+
+<div class="card">
+
+<h3>待处理</h3>
+
+<p id="pendingCount">0</p>
+
+</div>
+
+<div class="card">
+
+<h3>已完成</h3>
+
+<p id="completedCount">0</p>
+
+</div>
+
+<div class="card">
+
+<h3>总订单</h3>
+
+<p id="totalCount">0</p>
+
+</div>
+
+</div>
+
+<div class="menu">
+
+<button onclick="location.href='orders.html'">
+
+订单管理
+
+</button>
+
+<button onclick="location.href='settings.html'">
+
+系统设置
+
+</button>
+
+</div>
+
+<script>
+
+document
+.getElementById("logout")
+.onclick=function(){
+
+location.href="admin.html";
+
+}
+
+// 演示数据
+document.getElementById("todayCount").innerHTML="12";
+document.getElementById("pendingCount").innerHTML="5";
+document.getElementById("completedCount").innerHTML="7";
+document.getElementById("totalCount").innerHTML="128";
+
+</script>
+
+</body>
+
+</html>

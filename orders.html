@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>订单管理</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="admin-header">
+<h2>订单管理</h2>
+<button onclick="location.href='dashboard.html'">返回首页</button>
+</header>
+
+<div class="card">
+
+<input
+id="keyword"
+type="text"
+placeholder="输入订单号或手机号">
+
+<button id="searchBtn">
+查询
+</button>
+
+</div>
+
+<table class="table">
+
+<thead>
+
+<tr>
+
+<th>订单号</th>
+
+<th>手机号</th>
+
+<th>金额</th>
+
+<th>状态</th>
+
+<th>操作</th>
+
+</tr>
+
+</thead>
+
+<tbody id="orderTable">
+
+<tr>
+
+<td>OD202607130001</td>
+
+<td>138****8000</td>
+
+<td>200</td>
+
+<td>待处理</td>
+
+<td>
+
+<button class="viewBtn">
+
+查看
+
+</button>
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+<script>
+
+document
+.getElementById("searchBtn")
+.onclick=function(){
+
+alert("演示版：这里将接入 Cloudflare D1 数据库搜索。");
+
+}
+
+document
+.querySelector(".viewBtn")
+.onclick=function(){
+
+location.href="order.html?id=OD202607130001";
+
+}
+
+</script>
+
+</body>
+</html>

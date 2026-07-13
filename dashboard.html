@@ -83,19 +83,30 @@ content="width=device-width,initial-scale=1">
 
 <script>
 
-document
-.getElementById("logout")
-.onclick=function(){
+document.getElementById("logout").onclick=function(){
+    location.href="admin.html";
+}
 
-location.href="admin.html";
+function loadDashboard(){
+
+    const orders=JSON.parse(localStorage.getItem("orders")||"[]");
+
+    document.getElementById("todayCount").innerHTML=orders.length;
+
+    document.getElementById("pendingCount").innerHTML=
+        orders.filter(o=>o.status==="待处理").length;
+
+    document.getElementById("completedCount").innerHTML=
+        orders.filter(o=>o.status==="已完成").length;
+
+    document.getElementById("totalCount").innerHTML=
+        orders.length;
 
 }
 
-// 演示数据
-document.getElementById("todayCount").innerHTML="12";
-document.getElementById("pendingCount").innerHTML="5";
-document.getElementById("completedCount").innerHTML="7";
-document.getElementById("totalCount").innerHTML="128";
+window.onload=loadDashboard;
+
+</script>
 
 <script src="js/api.js"></script>
 <script src="js/admin.js"></script>
